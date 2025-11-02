@@ -7,6 +7,11 @@ import org.emp.gl.clients.Horloge ;
 import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
 import org.emp.gl.timer.service.TimerService;
 
+
+import javax.swing.SwingUtilities;
+import org.emp.gl.clients.HorlogeGUI;
+
+
 /**
  * Hello world!
  *
@@ -25,7 +30,7 @@ public class App {
 
           // Créer un compte à rebours de 5 secondes
         //CompteARebours c1 = new CompteARebours("C1", 5, timerService);
-        
+
          // Créer une horloge
         Horloge h1 = new Horloge("H1", timerService);
 
@@ -37,8 +42,12 @@ public class App {
             int valeurInitiale = 10 + rand.nextInt(11); // entre 10 et 20 inclus
             new CompteARebours("C" + i, valeurInitiale, timerService);
         }
+         // Lancer l'interface graphique dans le thread de Swing
+         SwingUtilities.invokeLater(() -> {
+            new HorlogeGUI(timerService);
+        });
 
-
+      
         
         
     }
