@@ -1,5 +1,7 @@
 package org.emp.gl.clients;
 
+import java.beans.PropertyChangeEvent;
+
 import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService;
 
@@ -20,20 +22,19 @@ public class CompteARebours implements TimerChangeListener {
         System.out.println("Compte à rebours " + name + " initialisé à " + valeur + " secondes.");
     }
 
-    @Override
-    public void propertyChange(String prop, Object oldValue, Object newValue) {
-        // On ne réagit qu'au changement de seconde
-        if (prop.equals(SECONDE_PROP)) {
-            if (valeur > 0) {
-                valeur--;
-                System.out.println(name + " : " + valeur + " seconde(s) restante(s)");
-            }
 
-            if (valeur == 0) {
-                System.out.println(name + " terminé !");
-                // Se désinscrire du timer
-                timerService.removeTimeChangeListener(this);
-            }
+   @Override
+public void propertyChange(PropertyChangeEvent evt) {
+    if (evt.getPropertyName().equals(SECONDE_PROP)) {
+        if (valeur > 0) {
+            valeur--;
+            System.out.println(name + " : " + valeur + " seconde(s) restante(s)");
+        }
+        if (valeur == 0) {
+            System.out.println(name + " terminé !");
+            timerService.removeTimeChangeListener(this);
         }
     }
-}
+}}
+
+
